@@ -10,6 +10,10 @@ public class PlayerMovement : MonoBehaviour
     public float speedForce = 12.0f;
     public float jumpForce = 5.0f;
 
+    public bool IsDoubleJumpReady = false;
+    private float _deltaTime = 0f;
+    public float targetTime = 0.1f;
+    public float DoubleJumpMultiplier = 2f;
 
     public bool IsGrounded = false;
     public Vector3 offset = Vector2.zero;
@@ -45,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        _deltaTime += Time.deltaTime;
         _moviment = new Vector2(Input.GetAxisRaw("Horizontal") * speedForce, 0.0f);
      
         if (_moviment.sqrMagnitude > 0.1f)
@@ -56,6 +60,16 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && IsGrounded)
         {
             _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            IsDoubleJumpReady = true;
+        }
+
+        if(Input.GetButtonDown("Jump") && !IsGrounded && _deltaTime > targetTime && IsDoubleJumpReady) {
+            float jumpFactor = _body.velocity.y < 0f ? jumpForce * DoubleJumpMultiplier : jumpForce;
+            
+            _deltaTime = 0;
+            
+            _body.AddForce(Vector2.up * jumpFactor, ForceMode2D.Impulse);
+            IsDoubleJumpReady = false;
         }
         
         //_animator.SetFloat(speedParam, Mathf.Abs(_body.velocity.x));
