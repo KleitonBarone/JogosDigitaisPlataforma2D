@@ -21,13 +21,6 @@ Também é possível coletar moedas que estão espalhadas no mapa.
 
 
 ## Assets
-https://kenney.nl/assets/scribble-platformer
 
-https://kenney.nl/assets/roguelike-caves-dungeons
-
-https://kenney.nl/assets/smoke-particles
-
-https://kenney.nl/assets/platformer-pack-medieval
-
-https://craftpix.net/freebies/free-2d-pirate-character-sprites/
+https://o-lobster.itch.io/platformmetroidvania-pixel-art-asset-pack
 
