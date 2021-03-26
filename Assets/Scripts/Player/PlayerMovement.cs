@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-     private int speedParam = Animator.StringToHash("Speed");
-    private int groudedParam = Animator.StringToHash("IsGrouded");
+    private int speedParam = Animator.StringToHash("Speed");
+    private int YParam = Animator.StringToHash("YForce");
+    private int groundedParam = Animator.StringToHash("IsGrounded");
 
     public float speedForce = 12.0f;
     public float jumpForce = 5.0f;
@@ -34,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {        
         _body = GetComponent<Rigidbody2D>();
-        //_animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         _renderer = GetComponent<SpriteRenderer>();
     }
 
@@ -64,16 +65,19 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if(Input.GetButtonDown("Jump") && !IsGrounded && _deltaTime > targetTime && IsDoubleJumpReady) {
-            float jumpFactor = _body.velocity.y < 0f ? jumpForce * DoubleJumpMultiplier : jumpForce;
+            if( _body.velocity.y < 0f ) {
+                _body.AddForce( new Vector2(0.0f, -_body.velocity.y), ForceMode2D.Impulse);
+            }  
             
             _deltaTime = 0;
             
-            _body.AddForce(Vector2.up * jumpFactor, ForceMode2D.Impulse);
+            _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             IsDoubleJumpReady = false;
         }
         
-        //_animator.SetFloat(speedParam, Mathf.Abs(_body.velocity.x));
-       // _animator.SetBool(groudedParam, IsGrounded);
+        _animator.SetFloat(speedParam, Mathf.Abs(_body.velocity.x));
+        _animator.SetFloat(YParam, _body.velocity.y);
+        _animator.SetBool(groundedParam, IsGrounded);
     }
 
 
