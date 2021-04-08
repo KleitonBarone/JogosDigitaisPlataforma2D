@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 offset = Vector2.zero;
     public float raidios = 1.0f;
     public LayerMask layer;
+    public float logVelocity;
 
     private Vector2 _input = Vector2.zero;
     private Vector2 _direction = Vector2.zero;
@@ -86,11 +87,15 @@ public class PlayerMovement : MonoBehaviour
     {
 
         IsGrounded = Physics2D.OverlapCircle(this.transform.position + offset, raidios, layer);
+        logVelocity = _body.velocity.x;
 
         if (_moviment.sqrMagnitude > 0.1f)
-        {            
-            _body.AddForce(_moviment, ForceMode2D.Force);
-            Debug.Log("Aplicou força");
+        {
+            if (_body.velocity.x < 7.0f && _body.velocity.x > -7.0f)
+            {
+                _body.AddForce(_moviment, ForceMode2D.Force);
+            }
+            
         }
     }
 
