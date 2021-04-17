@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private int YParam = Animator.StringToHash("YForce");
     private int groundedParam = Animator.StringToHash("IsGrounded");
 
+    public int coins = 0;
     public float speedForce = 12.0f;
     public float jumpForce = 5.0f;
 
@@ -47,6 +48,19 @@ public class PlayerMovement : MonoBehaviour
     {
         
     }
+
+    // OnTriggerEnter2D é chamado quando outro Collider2D entra no gatilho (somente física de 2D)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if(collision.gameObject.CompareTag("Coins")) 
+        {
+            coins++;
+            Destroy(collision.gameObject);
+        }
+    }
+
+
 
     // Update is called once per frame
     void Update()
