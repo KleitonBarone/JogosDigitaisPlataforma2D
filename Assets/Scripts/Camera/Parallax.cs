@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    //public GameObject playerCamera1 = GameObject.Find("playerCamera");
     public GameObject playerCamera;
     public float length, startPos;
     public float parallaxSpeed;

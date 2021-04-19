@@ -9,8 +9,10 @@ public class PlayerMovement : MonoBehaviour
     private int groundedParam = Animator.StringToHash("IsGrounded");
 
     public int coins = 0;
-    public float speedForce = 12.0f;
+    public float speedForce = 5.0f;
     public float jumpForce = 5.0f;
+
+    public float maxSpeed = 8.0f;
 
     public bool IsDoubleJumpReady = false;
     private float _deltaTime = 0f;
@@ -20,12 +22,13 @@ public class PlayerMovement : MonoBehaviour
     public bool IsGrounded = false;
     public Vector3 offset = Vector2.zero;
     public float raidios = 1.0f;
+    public float logSpeed = 0f;
     public LayerMask layer;
-    public float logVelocity;
 
     private Vector2 _input = Vector2.zero;
     private Vector2 _direction = Vector2.zero;
-    public Vector2 _moviment = Vector2.zero;
+    private Vector2 _moviment = Vector2.zero;
+    private Vector2 _jump = Vector2.zero;
     private Rigidbody2D _body = null;
     private Animator _animator = null;
     private SpriteRenderer _renderer = null;
@@ -49,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    // OnTriggerEnter2D é chamado quando outro Collider2D entra no gatilho (somente física de 2D)
+    // OnTriggerEnter2D ï¿½ chamado quando outro Collider2D entra no gatilho (somente fï¿½sica de 2D)
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -67,7 +70,8 @@ public class PlayerMovement : MonoBehaviour
     {
         _deltaTime += Time.deltaTime;
         _moviment = new Vector2(Input.GetAxisRaw("Horizontal") * speedForce, 0.0f);
-     
+        _jump = Input.GetButtonDown("Jump") ? new Vector2(_body.velocity.x, 1 * jumpForce) : new Vector2(_body.velocity.x, 0 * jumpForce);
+
         if (_moviment.sqrMagnitude > 0.1f)
         {           
             _renderer.flipX = !(Input.GetAxis("Horizontal") > 0.0f);            
@@ -81,12 +85,12 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetButtonDown("Jump") && !IsGrounded && _deltaTime > targetTime && IsDoubleJumpReady) {
             if( _body.velocity.y < 0f ) {
-                _body.AddForce( new Vector2(0.0f, -_body.velocity.y), ForceMode2D.Impulse);
+                _body.AddForce(  new Vector2(0.0f, -_body.velocity.y) - _body.velocity, ForceMode2D.Impulse);
             }  
             
             _deltaTime = 0;
             
-            _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            _body.AddForce(_jump - _body.velocity, ForceMode2D.Impulse);
             IsDoubleJumpReady = false;
         }
         
@@ -101,16 +105,12 @@ public class PlayerMovement : MonoBehaviour
     {
 
         IsGrounded = Physics2D.OverlapCircle(this.transform.position + offset, raidios, layer);
-        logVelocity = _body.velocity.x;
-
-        if (_moviment.sqrMagnitude > 0.1f)
-        {
-            if (_body.velocity.x < 7.0f && _body.velocity.x > -7.0f)
-            {
-                _body.AddForce(_moviment, ForceMode2D.Force);
-            }
-            
+        logSpeed = _body.velocity.x;
+        if(_body.velocity.x < maxSpeed && _body.velocity.x > -maxSpeed) { //limita a velocidade em 8
+            _body.AddForce(_moviment - _body.velocity, ForceMode2D.Force);
         }
+        
+
     }
 
     private void OnDrawGizmosSelected()
