@@ -6,7 +6,10 @@ TagManager:
   tags:
   - Coins
   - River
+<<<<<<< HEAD
   - Checkpoint
+=======
+>>>>>>> 18991085d63a56abddca19deb1c1a1ce5b86ede1
   layers:
   - Default
   - TransparentFX
