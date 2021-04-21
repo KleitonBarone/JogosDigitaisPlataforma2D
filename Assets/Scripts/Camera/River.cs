@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Parallax : MonoBehaviour
+public class River : MonoBehaviour
 {
     public GameObject playerCamera;
     public float length, startPos;
@@ -19,12 +19,13 @@ public class Parallax : MonoBehaviour
     void FixedUpdate()
     {
 
+        float river_y = -6.07f;
         float temp = (playerCamera.transform.position.x * (1 - parallaxSpeed));
         float distance = (playerCamera.transform.position.x * parallaxSpeed);
 
-        transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);
-        
-        
+        transform.position = new Vector3(startPos + distance, river_y, transform.position.z);
+
+
 
         if (temp > startPos + length)
         {
