@@ -3,16 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-<<<<<<< HEAD
   tags:
   - River
   - Coins
   - Head
   - Goblin
   - Enemy
-=======
-  tags: []
->>>>>>> 1b435a0095635bf26b2ade5fb9fae172cbb57b07
+  - Lifes
+  - Life
+  - game_over_text
   layers:
   - Default
   - TransparentFX
