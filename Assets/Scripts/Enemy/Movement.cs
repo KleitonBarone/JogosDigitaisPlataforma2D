@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goblin : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     GameObject Enemy;
     [SerializeField]
@@ -15,10 +15,12 @@ public class Goblin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         transform.position = Vector2.MoveTowards(transform.position, positions[index], Time.deltaTime * speed);
-        
+        Debug.Log(positions[index]);
         if(transform.position == positions[index])
         {
+
             if(index == positions.Length - 1)
             {   
                 index = 0;

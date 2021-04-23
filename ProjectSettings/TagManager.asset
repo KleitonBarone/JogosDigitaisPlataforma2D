@@ -8,6 +8,7 @@ TagManager:
   - Coins
   - Head
   - Goblin
+  - Enemy
   layers:
   - Default
   - TransparentFX

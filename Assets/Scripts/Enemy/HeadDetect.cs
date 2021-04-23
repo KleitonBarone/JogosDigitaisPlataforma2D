@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class HeadDetect : MonoBehaviour
 {
-    GameObject Enemy;
+    GameObject Enemi;
 
     // Update is called once per frame
     void Update()
     {
-        Enemy = gameObject.transform.parent.gameObject;
+        Enemi = gameObject.transform.parent.gameObject;
+        if(Enemi.transform.position.y < -3.8f) {Destroy(Enemi);}
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -17,10 +18,13 @@ public class HeadDetect : MonoBehaviour
         if(collision.gameObject.CompareTag("Player"))
         {
             GetComponent<Collider2D>().enabled = false;
-            Enemy.GetComponent<SpriteRenderer>().flipY = true;
-            Enemy.GetComponent<Collider2D>().enabled = false;
+            Enemi.GetComponent<SpriteRenderer>().flipY = true;
+            Enemi.GetComponent<Collider2D>().enabled = false;
             Vector3 movement = new Vector3(Random.Range(40,70),Random.Range(-40,40),0f);
-            Enemy.transform.position = Enemy.transform.position + movement * Time.deltaTime;
+            Enemi.transform.position = Enemi.transform.position + movement * Time.deltaTime;
+            Transform parent = transform.parent;
+            GameObject EnemiChild = parent.GetChild(1).gameObject;
+            EnemiChild.tag = "Untagged";
         }    
     }
 }

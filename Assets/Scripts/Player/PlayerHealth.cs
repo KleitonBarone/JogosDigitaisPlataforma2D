@@ -17,9 +17,6 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Head")){
-            test++;       
-    }
         if (collision.gameObject.CompareTag("River"))
         {
 
@@ -41,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
 
             //IsOnRiver = true;
             //Destroy(collision.gameObject);
-        }else if(collision.gameObject.CompareTag("Goblin") && collision.gameObject.CompareTag("Head") == false)
+        }else if(collision.gameObject.CompareTag("Enemy") && collision.gameObject.CompareTag("Head") == false)
             {
                 
                 GetComponent<Collider2D>().enabled = false;
