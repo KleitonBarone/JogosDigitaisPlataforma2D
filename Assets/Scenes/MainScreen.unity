@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 32608808}
   - component: {fileID: 32608807}
   m_Layer: 5
-  m_Name: QuitGame
+  m_Name: BtnQuitGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3162,7 +3162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92159e3f269eada4495b0b26ea5a93da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 0}
+  BtnNewGame: {fileID: 1918738582}
+  BtnQuit: {fileID: 32608807}
 --- !u!1 &1918738580
 GameObject:
   m_ObjectHideFlags: 0
@@ -3176,7 +3177,7 @@ GameObject:
   - component: {fileID: 1918738583}
   - component: {fileID: 1918738582}
   m_Layer: 5
-  m_Name: NewGame
+  m_Name: BtnNewGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

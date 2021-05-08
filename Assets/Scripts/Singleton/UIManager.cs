@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Button button;
+    public Button BtnNewGame;
+    public Button BtnQuit;
     // Start is called just before any of the Update methods is called the first time
     private void Start()
     {
         //Button button = GameObject.Find("NewGameButton").GetComponent<Button>();
-        button.onClick.AddListener(NewGame);
+        BtnNewGame.onClick.AddListener(NewGame);
+        BtnQuit.onClick.AddListener(Quit);
     }
 
 
