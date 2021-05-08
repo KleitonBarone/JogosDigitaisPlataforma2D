@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
@@ -9,11 +10,14 @@ public class PlayerHealth : MonoBehaviour
     public int Lifes = 3;
     public int test = 1;
     public GameObject GameOverText;
+    public GameObject Canvas;
+    public Image CI_GameOver;
     private Vector3 RespawnPoint;
     // Start is called before the first frame update
     void Start()
     {
         GameOverText.SetActive(false);
+        //CI_GameOver.enabled = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -23,7 +27,9 @@ public class PlayerHealth : MonoBehaviour
 
             if (Lifes == 1)
             {
+                
                 GameOverText.SetActive(true);
+                CI_GameOver.gameObject.SetActive(true);
                 GameOver();
             }
             else {
@@ -91,6 +97,6 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+       
     }
 }
