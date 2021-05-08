@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : IPersistentSingleton<GameManager>
 {
 
-
     public void LoadLevel(string levelName)
     {
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Single);
