@@ -11779,9 +11779,8 @@ MonoBehaviour:
   IsOnRiver: 0
   Lifes: 3
   test: 1
-  GameOverText: {fileID: 1483129727}
   Canvas: {fileID: 0}
-  CI_GameOver: {fileID: 0}
+  CI_GameOver: {fileID: 1388783425}
 --- !u!1 &381903543
 GameObject:
   m_ObjectHideFlags: 0
@@ -14831,7 +14830,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1483129728
 Transform:
   m_ObjectHideFlags: 0
