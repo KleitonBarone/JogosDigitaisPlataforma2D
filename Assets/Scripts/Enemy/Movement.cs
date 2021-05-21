@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
     {
 
         transform.position = Vector2.MoveTowards(transform.position, positions[index], Time.deltaTime * speed);
-        Debug.Log(positions[index]);
+        //Debug.Log(positions[index]);
         if(transform.position == positions[index])
         {
 

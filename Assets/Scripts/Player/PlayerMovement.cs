@@ -32,9 +32,12 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _body = null;
     private Animator _animator = null;
     private SpriteRenderer _renderer = null;
-    
 
+    public Vector3 projectileOffset;
+    public float projectileRadius = 1.0f;
 
+    bool isRightFaced = true;
+    public ObjectPooling objectPooling = new ObjectPooling();
 
     // Awake is called when the script instance is being loaded
     private void Awake()
@@ -49,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        objectPooling.OnStart();
+        GameManager aux = GameManager.Instance;
         //GameManager.Instance.LoadLevel("Demo");
     }
 
@@ -73,7 +78,8 @@ public class PlayerMovement : MonoBehaviour
         _jump = Input.GetButtonDown("Jump") ? new Vector2(_body.velocity.x, 1 * jumpForce) : new Vector2(_body.velocity.x, 0 * jumpForce);
 
         if (_moviment.sqrMagnitude > 0.1f)
-        {           
+        {
+            isRightFaced = (Input.GetAxis("Horizontal") > 0.0f);
             _renderer.flipX = !(Input.GetAxis("Horizontal") > 0.0f);            
         }
         
@@ -93,7 +99,18 @@ public class PlayerMovement : MonoBehaviour
             _body.AddForce(_jump - _body.velocity, ForceMode2D.Impulse);
             IsDoubleJumpReady = false;
         }
-        
+
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            float faceFactor = (isRightFaced ? 1.0f : -1.0f);
+            projectileOffset.x *= faceFactor;
+            Vector3 projectilePosition = this.transform.position + projectileOffset;
+            Projectile projectile = ObjectPooling.GetProjectile();
+            projectile.transform.position = projectilePosition;
+            projectile.Shoot(isRightFaced);
+        }
+
         _animator.SetFloat(speedParam, Mathf.Abs(_body.velocity.x));
         _animator.SetFloat(YParam, _body.velocity.y);
         _animator.SetBool(groundedParam, IsGrounded);
