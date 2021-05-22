@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -24,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     public float raidios = 1.0f;
     public float logSpeed = 0f;
     public LayerMask layer;
+    public Text coinsScore;
 
     private Vector2 _input = Vector2.zero;
     private Vector2 _direction = Vector2.zero;
@@ -63,9 +66,11 @@ public class PlayerMovement : MonoBehaviour
 
         if(collision.gameObject.CompareTag("Coins")) 
         {
-            coins++;
             Destroy(collision.gameObject);
+            coins++;
+            coinsScore.text = "x "+coins.ToString();
         }
+
     }
 
 

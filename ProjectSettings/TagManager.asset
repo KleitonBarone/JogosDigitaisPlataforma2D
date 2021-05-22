@@ -12,6 +12,7 @@ TagManager:
   - Lifes
   - Life
   - game_over_text
+  - Spikes
   layers:
   - Default
   - TransparentFX
