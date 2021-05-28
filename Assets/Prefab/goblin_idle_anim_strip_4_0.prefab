@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1770255251}
   m_Layer: 0
   m_Name: goblin_idle_anim_strip_4_0
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 3979527384769092689}
   m_Layer: 0
   m_Name: Goblin
-  m_TagString: Goblin
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -285,7 +285,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05364442, y: -0.0089407265}
+  m_Offset: {x: 0.10688676, y: -0.0089407265}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -296,7 +296,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6066079, y: 0.2668602}
+  m_Size: {x: 0.2855455, y: 0.2668602}
   m_EdgeRadius: 0
 --- !u!50 &3979527384769092689
 Rigidbody2D:

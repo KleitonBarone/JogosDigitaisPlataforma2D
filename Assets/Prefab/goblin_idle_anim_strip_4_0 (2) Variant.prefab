@@ -27,6 +27,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: goblin_idle_anim_strip_4_0 (2) Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3979527383686147603, guid: 02d0dc6af127dabb89e902902968c823, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3979527383686147607, guid: 02d0dc6af127dabb89e902902968c823, type: 3}
       propertyPath: m_Constraints
       value: 4
@@ -74,6 +78,18 @@ PrefabInstance:
     - target: {fileID: 3979527383686147609, guid: 02d0dc6af127dabb89e902902968c823, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979527384769092684, guid: 02d0dc6af127dabb89e902902968c823, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979527384769092686, guid: 02d0dc6af127dabb89e902902968c823, type: 3}
+      propertyPath: m_Size.x
+      value: 0.1734253
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979527384769092686, guid: 02d0dc6af127dabb89e902902968c823, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.076307885
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02d0dc6af127dabb89e902902968c823, type: 3}

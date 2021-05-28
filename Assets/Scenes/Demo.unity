@@ -16064,6 +16064,10 @@ PrefabInstance:
       propertyPath: layer.m_Bits
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 4994771976953613284, guid: 962ca113a8c6c3f4e961145069ba88d9, type: 3}
+      propertyPath: projectileOffset.x
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 4994771976953613286, guid: 962ca113a8c6c3f4e961145069ba88d9, type: 3}
       propertyPath: m_RootOrder
       value: 8

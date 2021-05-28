@@ -17,9 +17,12 @@ public class PlayerMovement : MonoBehaviour
     public float maxSpeed = 8.0f;
 
     public bool IsDoubleJumpReady = false;
-    private float _deltaTime = 0f;
-    public float targetTime = 0.1f;
+    private float _deltaTimeJump = 0f;
+    public float targetTimeJump = 0.1f;
     public float DoubleJumpMultiplier = 2f;
+
+    private float _deltaTimeAttack = 0f;
+    public float targetTimeAttack = 1f;
 
     public bool IsGrounded = false;
     public Vector3 offset = Vector2.zero;
@@ -78,7 +81,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _deltaTime += Time.deltaTime;
+        _deltaTimeJump += Time.deltaTime;
+        _deltaTimeAttack += Time.deltaTime;
+        
         _moviment = new Vector2(Input.GetAxisRaw("Horizontal") * speedForce, 0.0f);
         _jump = Input.GetButtonDown("Jump") ? new Vector2(_body.velocity.x, 1 * jumpForce) : new Vector2(_body.velocity.x, 0 * jumpForce);
 
@@ -94,26 +99,27 @@ public class PlayerMovement : MonoBehaviour
             IsDoubleJumpReady = true;
         }
 
-        if(Input.GetButtonDown("Jump") && !IsGrounded && _deltaTime > targetTime && IsDoubleJumpReady) {
+        if(Input.GetButtonDown("Jump") && !IsGrounded && _deltaTimeJump > targetTimeJump && IsDoubleJumpReady) {
             if( _body.velocity.y < 0f ) {
                 _body.AddForce(  new Vector2(0.0f, -_body.velocity.y) - _body.velocity, ForceMode2D.Impulse);
             }  
             
-            _deltaTime = 0;
+            _deltaTimeJump = 0;
             
             _body.AddForce(_jump - _body.velocity, ForceMode2D.Impulse);
             IsDoubleJumpReady = false;
         }
 
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") &&  _deltaTimeAttack > targetTimeAttack)
         {
             float faceFactor = (isRightFaced ? 1.0f : -1.0f);
-            projectileOffset.x *= faceFactor;
-            Vector3 projectilePosition = this.transform.position + projectileOffset;
+            Vector3 projectileOffsetValue = new Vector3(projectileOffset.x * faceFactor, 0, 0);
+            Vector3 projectilePosition = this.transform.position + projectileOffsetValue;
             Projectile projectile = ObjectPooling.GetProjectile();
             projectile.transform.position = projectilePosition;
             projectile.Shoot(isRightFaced);
+            _deltaTimeAttack = 0;
         }
 
         _animator.SetFloat(speedParam, Mathf.Abs(_body.velocity.x));
