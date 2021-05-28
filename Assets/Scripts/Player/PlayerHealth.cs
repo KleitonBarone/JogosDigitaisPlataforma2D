@@ -36,17 +36,19 @@ public class PlayerHealth : MonoBehaviour
                 GameOver();
             }
             else {
-                GetComponent<Collider2D>().enabled = false;
-                this.GetComponent<SpriteRenderer>().flipY = true;
-                this.GetComponent<Collider2D>().enabled = false;
-                Vector3 movement = new Vector3(Random.Range(40, 70), Random.Range(-40, 40), 0f);
-                this.transform.position = this.transform.position + movement * Time.deltaTime;
-                Lifes--;
-                DestroyLife("Life", Lifes);
-                //this.transform.position = new Vector3(-18.1f, 0.46f, 0);
-                //RestartScene(this.transform.position);
-                //this.GetComponent<SpriteRenderer>().flipY = false;
-                StartCoroutine("BacktoCheckpoint");
+                //GetComponent<Collider2D>().enabled = false;
+                //this.GetComponent<SpriteRenderer>().flipY = true;
+                //this.GetComponent<Collider2D>().enabled = false;
+                //Vector3 movement = new Vector3(Random.Range(40, 70), Random.Range(-40, 40), 0f);
+                //this.transform.position = this.transform.position + movement * Time.deltaTime;
+                if (Lifes > 0) {
+                    DestroyLife("Life", Lifes);
+                    //this.transform.position = new Vector3(-18.1f, 0.46f, 0);
+                    //RestartScene(this.transform.position);
+                    //this.GetComponent<SpriteRenderer>().flipY = false;
+                    StartCoroutine("BacktoCheckpoint");
+                } Lifes--;
+    
             }
 
             //IsOnRiver = true;
@@ -59,11 +61,17 @@ public class PlayerHealth : MonoBehaviour
                 this.GetComponent<Collider2D>().enabled = false;
                 Vector3 movement = new Vector3(Random.Range(40, 70), Random.Range(-40, 40), 0f);
                 this.transform.position = this.transform.position + movement * Time.deltaTime;
+
+            if (Lifes > 0)
+            {
                 Lifes--;
                 DestroyLife("Life", Lifes);
                 this.transform.position = new Vector3(-18.1f, 0.46f, 0);
                 //RestartScene(this.transform.position);
                 this.GetComponent<SpriteRenderer>().flipY = false;
+            }
+
+               
             }else if (collision.gameObject.CompareTag("Spikes"))
             {
                 if (Lifes == 1)
