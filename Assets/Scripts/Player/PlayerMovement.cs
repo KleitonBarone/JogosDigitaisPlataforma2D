@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private int speedParam = Animator.StringToHash("Speed");
     private int YParam = Animator.StringToHash("YForce");
     private int groundedParam = Animator.StringToHash("IsGrounded");
+    private int isFiring = Animator.StringToHash("isFiring");
 
     public int coins = 0;
     public float speedForce = 5.0f;
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     public float targetTimeAttack = 1f;
 
     public bool IsGrounded = false;
+    public bool isAttacking = false;
     public Vector3 offset = Vector2.zero;
     public float raidios = 1.0f;
     public float logSpeed = 0f;
@@ -113,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") &&  _deltaTimeAttack > targetTimeAttack)
         {
+            isAttacking = true;
             float faceFactor = (isRightFaced ? 1.0f : -1.0f);
             Vector3 projectileOffsetValue = new Vector3(projectileOffset.x * faceFactor, 0, 0);
             Vector3 projectilePosition = this.transform.position + projectileOffsetValue;
@@ -121,10 +124,15 @@ public class PlayerMovement : MonoBehaviour
             projectile.Shoot(isRightFaced);
             _deltaTimeAttack = 0;
         }
+        else
+        {
+            isAttacking = false;
+        }
 
         _animator.SetFloat(speedParam, Mathf.Abs(_body.velocity.x));
         _animator.SetFloat(YParam, _body.velocity.y);
         _animator.SetBool(groundedParam, IsGrounded);
+        _animator.SetBool(isFiring, isAttacking);
     }
 
 
