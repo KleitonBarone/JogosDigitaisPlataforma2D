@@ -6,13 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
+    private int isDying = Animator.StringToHash("isDying");
+    private Animator _animator = null;
     public bool IsOnRiver = false;
     public int Lifes = 3;
-    public int test = 1;
-    //public GameObject GameOverText;
     public GameObject Canvas;
     public Image CI_GameOver;
     private Vector3 RespawnPoint;
+ 
+    public bool isDied = false;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,92 +28,55 @@ public class PlayerHealth : MonoBehaviour
         CI_GameOver.enabled = false;
     }
 
- 
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("River"))
         {
-
+            isDied = true;
             if (Lifes == 1)
             {
-                
-                //GameOverText.SetActive(true);
-                CI_GameOver.enabled = true;
-                //CI_GameOver.gameObject.SetActive(true);
                 GameOver();
             }
-            else {
-                //GetComponent<Collider2D>().enabled = false;
-                //this.GetComponent<SpriteRenderer>().flipY = true;
-                //this.GetComponent<Collider2D>().enabled = false;
-                //Vector3 movement = new Vector3(Random.Range(40, 70), Random.Range(-40, 40), 0f);
-                //this.transform.position = this.transform.position + movement * Time.deltaTime;
-                if (Lifes > 0) {
-                    Lifes--;
-                    DestroyLife("Life", Lifes);
-                    //this.transform.position = new Vector3(-18.1f, 0.46f, 0);
-                    //RestartScene(this.transform.position);
-                    //this.GetComponent<SpriteRenderer>().flipY = false;
-                    StartCoroutine("BacktoCheckpoint");
-                } 
-    
-            }
-
-            //IsOnRiver = true;
-            //Destroy(collision.gameObject);
-        }else if(collision.gameObject.CompareTag("Enemy") && collision.gameObject.CompareTag("Head") == false)
+            else
             {
-                
-                GetComponent<Collider2D>().enabled = false;
-                this.GetComponent<SpriteRenderer>().flipY = true;
-                this.GetComponent<Collider2D>().enabled = false;
-                Vector3 movement = new Vector3(Random.Range(40, 70), Random.Range(-40, 40), 0f);
-                this.transform.position = this.transform.position + movement * Time.deltaTime;
 
-            if (Lifes > 0)
-            {
-                Lifes--;
-                DestroyLife("Life", Lifes);
-                this.transform.position = new Vector3(-18.1f, 0.46f, 0);
-                //RestartScene(this.transform.position);
-                this.GetComponent<SpriteRenderer>().flipY = false;
-            }
-
-               
-            }else if (collision.gameObject.CompareTag("Spikes"))
-            {
-                if (Lifes == 1)
+                if (Lifes > 0)
                 {
+                    OnPlayerDeath();
+                }
 
-                    //GameOverText.SetActive(true);
-                    CI_GameOver.enabled = true;
-                    //CI_GameOver.gameObject.SetActive(true);
-                    GameOver();
-                }
-                else
-                {
-                    GetComponent<Collider2D>().enabled = false;
-                    this.GetComponent<SpriteRenderer>().flipY = true;
-                    this.GetComponent<Collider2D>().enabled = false;
-                    Vector3 movement = new Vector3(Random.Range(40, 70), Random.Range(-40, 40), 0f);
-                    this.transform.position = this.transform.position + movement * Time.deltaTime;
-                    Lifes--;
-                    DestroyLife("Life", Lifes);
-                    this.transform.position = new Vector3(-18.1f, 0.46f, 0);
-                    //RestartScene(this.transform.position);
-                    this.GetComponent<SpriteRenderer>().flipY = false;
-                }
+            }
         }
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            isDied = true;
+            if (Lifes == 1)
+            {
+                GameOver();
+            }
+            else
+            {
+                OnPlayerDeath();
+            }
+        }
+        else if (collision.gameObject.CompareTag("Spikes"))
+        {
+            isDied = true;
+            if (Lifes == 1)
+            {
+                GameOver();
+            }
+            else
+            {
+                OnPlayerDeath();
+            }
+        }
+        _animator.SetBool(isDying, isDied);
 
 
     }
-
-    //public void RestartScene()
-    //{
-    //    new WaitForSeconds();
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    //}
 
     void DestroyLife(string tag, int life)
     {
@@ -116,35 +87,45 @@ public class PlayerHealth : MonoBehaviour
 
     void GameOver()
     {
-                GetComponent<Collider2D>().enabled = false;
-                //this.GetComponent<SpriteRenderer>().flipY = true;
-                this.GetComponent<Collider2D>().enabled = false;
-                Vector3 movement = new Vector3(Random.Range(40, 70), Random.Range(-40, 40), 0f);
-                this.transform.position = this.transform.position + movement * Time.deltaTime;
-                Lifes--;
+        CI_GameOver.enabled = true;
+        //GetComponent<Collider2D>().enabled = false;
+        ////this.GetComponent<SpriteRenderer>().flipY = true;
+        //this.GetComponent<Collider2D>().enabled = false;
+        //Vector3 movement = new Vector3(Random.Range(40, 70), Random.Range(-40, 40), 0f);
+        //this.transform.position = this.transform.position + movement * Time.deltaTime;
+        OnPlayerDeath();
 
-        StartCoroutine("Restart");
+        StartCoroutine(Restart());
     }
-    
+
+    void OnPlayerDeath()
+    {
+        Lifes--;
+        DestroyLife("Life", Lifes);
+        StartCoroutine(BacktoCheckpoint());
+    }
+
     IEnumerator Restart()
     {
-        yield return new WaitForSeconds(3);
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        yield return new WaitForSeconds(2);
+        isDied = false;
+        _animator.SetBool(isDying, isDied);
         GameManager.Instance.LoadLevel("MainScreen");
 
     }
 
-    IEnumerator BacktoCheckpoint() 
+    IEnumerator BacktoCheckpoint()
     {
         yield return new WaitForSeconds(2);
+        isDied = false;
+        _animator.SetBool(isDying, isDied);
         this.transform.position = new Vector3(-18.1f, 0.46f, 0);
-        //RestartScene(this.transform.position);
         this.GetComponent<SpriteRenderer>().flipY = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+
     }
 }

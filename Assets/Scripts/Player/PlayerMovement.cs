@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private int groundedParam = Animator.StringToHash("IsGrounded");
     private int isFiring = Animator.StringToHash("isFiring");
 
+
     public int coins = 0;
     public float speedForce = 5.0f;
     public float jumpForce = 5.0f;
