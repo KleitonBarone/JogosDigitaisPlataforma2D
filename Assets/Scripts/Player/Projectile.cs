@@ -18,12 +18,7 @@ public class Projectile : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Enemy")) 
         {  
-            if(collision.gameObject.name == "Goblin" || collision.gameObject.name == "GameObject" || collision.gameObject.name == "Head") {
-                Destroy(collision.gameObject.transform.parent.gameObject);
-            } else {
-                Destroy(collision.gameObject);
-            }
-            
+                Destroy(collision.gameObject);        
         }
         ReturnToPooling();
     }
