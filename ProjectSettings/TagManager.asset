@@ -13,6 +13,7 @@ TagManager:
   - Life
   - game_over_text
   - Spikes
+  - Door
   layers:
   - Default
   - TransparentFX

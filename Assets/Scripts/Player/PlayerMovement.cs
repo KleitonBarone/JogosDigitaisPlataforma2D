@@ -44,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector3 projectileOffset;
     public float projectileRadius = 1.0f;
+    
+    public Image Finish_Game;
 
     bool isRightFaced = true;
     public ObjectPooling objectPooling = new ObjectPooling();
@@ -64,18 +66,29 @@ public class PlayerMovement : MonoBehaviour
         objectPooling.OnStart();
         GameManager aux = GameManager.Instance;
         //GameManager.Instance.LoadLevel("Demo");
+        
+        Finish_Game.gameObject.SetActive(false);
+        Finish_Game.enabled = false;
     }
 
     // OnTriggerEnter2D � chamado quando outro Collider2D entra no gatilho (somente f�sica de 2D)
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
+	Debug.Log(collision.tag);
         if(collision.gameObject.CompareTag("Coins")) 
         {
             Destroy(collision.gameObject);
             coins++;
             coinsScore.text = "x "+coins.ToString();
         }
+        
+        //if(collision.gameObject.CompareTag("Door")) 
+        //{
+	   //Finish_Game.enabled = true;	
+    	   //Finish_Game.gameObject.SetActive(true);
+    	  // Debug.Log("TESTE");
+        //}
 
     }
 
