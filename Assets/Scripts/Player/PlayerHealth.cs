@@ -12,8 +12,8 @@ public class PlayerHealth : MonoBehaviour
     public int Lifes = 3;
     public GameObject Canvas;
     public Image CI_GameOver;
-    private Vector3 RespawnPoint;
- 
+    public PlayerScriptObject Savepoint;
+
     public bool isDied = false;
 
     private void Awake()
@@ -32,55 +32,40 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("River"))
+        switch(collision.gameObject.tag)
         {
-            isDied = true;
-            if (Lifes == 1)
-            {
-                GameOver();
-            }
-            else
-            {
-
-                if (Lifes > 0)
+            case "River":
+            case "Enemy":
+            case "Spikes":
+                isDied = true;
+                if (Lifes == 1)
                 {
-                    OnPlayerDeath();
+                    GameOver();
                 }
+                else
+                {
 
-            }
-        }
-        else if (collision.gameObject.CompareTag("Enemy"))
-        {
-            isDied = true;
-            if (Lifes == 1)
-            {
-                GameOver();
-            }
-            else
-            {
-                OnPlayerDeath();
-            }
-        }
-        else if (collision.gameObject.CompareTag("Spikes"))
-        {
-            isDied = true;
-            if (Lifes == 1)
-            {
-                GameOver();
-            }
-            else
-            {
-                OnPlayerDeath();
-            }
+                    if (Lifes > 0)
+                    {
+                        OnPlayerDeath();
+                    }
+
+                }
+                break;
         }
         _animator.SetBool(isDying, isDied);
+    }
 
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("SavePoint"))
+        {
+            Savepoint.setCheckpointPosition(collision.gameObject.name);
+        }
     }
 
     void DestroyLife(string tag, int life)
     {
-
         GameObject[] hearts = GameObject.FindGameObjectsWithTag(tag);
         Destroy(hearts[life]);
     }
@@ -88,13 +73,7 @@ public class PlayerHealth : MonoBehaviour
     void GameOver()
     {
         CI_GameOver.enabled = true;
-        //GetComponent<Collider2D>().enabled = false;
-        ////this.GetComponent<SpriteRenderer>().flipY = true;
-        //this.GetComponent<Collider2D>().enabled = false;
-        //Vector3 movement = new Vector3(Random.Range(40, 70), Random.Range(-40, 40), 0f);
-        //this.transform.position = this.transform.position + movement * Time.deltaTime;
         OnPlayerDeath();
-
         StartCoroutine(Restart());
     }
 
@@ -107,11 +86,11 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator Restart()
     {
+        Savepoint.resetCheckpointPosition();
         yield return new WaitForSeconds(2);
         isDied = false;
         _animator.SetBool(isDying, isDied);
         GameManager.Instance.LoadLevel("MainScreen");
-
     }
 
     IEnumerator BacktoCheckpoint()
@@ -119,13 +98,8 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(2);
         isDied = false;
         _animator.SetBool(isDying, isDied);
-        this.transform.position = new Vector3(-18.1f, 0.46f, 0);
+        this.transform.position = Savepoint.getCheckpointPosition();
         this.GetComponent<SpriteRenderer>().flipY = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

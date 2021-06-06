@@ -71,11 +71,10 @@ public class PlayerMovement : MonoBehaviour
         Finish_Game.enabled = false;
     }
 
-    // OnTriggerEnter2D � chamado quando outro Collider2D entra no gatilho (somente f�sica de 2D)
+    // OnTriggerEnter2D chamado quando outro Collider2D entra no gatilho (somente fisica de 2D)
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-	Debug.Log(collision.tag);
         if(collision.gameObject.CompareTag("Coins")) 
         {
             Destroy(collision.gameObject);

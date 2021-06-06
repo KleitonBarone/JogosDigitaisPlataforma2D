@@ -143,17 +143,21 @@ MonoBehaviour:
   jumpForce: 7
   maxSpeed: 7
   IsDoubleJumpReady: 0
-  targetTime: 0.1
+  targetTimeJump: 0.1
   DoubleJumpMultiplier: 1
+  targetTimeAttack: 1
   IsGrounded: 0
+  isAttacking: 0
   offset: {x: -0.06, y: -0.38, z: 0}
   raidios: 0.17
   logSpeed: 0
   layer:
     serializedVersion: 2
     m_Bits: 8
+  coinsScore: {fileID: 0}
   projectileOffset: {x: 0, y: 0, z: 0}
   projectileRadius: 1
+  Finish_Game: {fileID: 0}
   objectPooling:
     projectilePrefab: {fileID: 2845926452089528098, guid: b6a76be034a98b74f82ce3cbafd26b3e, type: 3}
     length: 10
@@ -216,6 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsOnRiver: 0
   Lifes: 3
-  test: 1
   Canvas: {fileID: 0}
   CI_GameOver: {fileID: 0}
+  Savepoint: {fileID: 11400000, guid: c643bc0d1761894478045a2baf8aa23b, type: 2}
+  isDied: 0

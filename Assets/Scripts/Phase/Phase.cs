@@ -22,30 +22,16 @@ public class Phase : MonoBehaviour
     	{
     	   Finish_Game.enabled = true;	
     	   Finish_Game.gameObject.SetActive(true);
-    	   StartCoroutine(ExampleCoroutine());
+    	   StartCoroutine(GotoMainScreen());
     	}
     
     }
     
     
-      IEnumerator ExampleCoroutine()
+      IEnumerator GotoMainScreen()
     {
-        //Print the time of when the function is first called.
-        Debug.Log("Started Coroutine at timestamp : " + Time.time);
-
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(2);
-
-        //After we have waited 5 seconds print the time again.
-        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
-        
-            	   GameManager.Instance.LoadLevel("MainScreen");
+       yield return new WaitForSeconds(2);
+       GameManager.Instance.LoadLevel("MainScreen");
     }
-    // Start is called before the first frame update
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
