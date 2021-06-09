@@ -11,23 +11,18 @@ public class Phase : MonoBehaviour
     
     void Start()
     {
-   	Finish_Game.gameObject.SetActive(false);
         Finish_Game.enabled = false;
-        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
     	if(collision.tag == "Player") 
     	{
-    	   Finish_Game.enabled = true;	
-    	   Finish_Game.gameObject.SetActive(true);
+    	   Finish_Game.enabled = true;
     	   StartCoroutine(GotoMainScreen());
     	}
     
     }
-    
-    
       IEnumerator GotoMainScreen()
     {
        yield return new WaitForSeconds(2);
