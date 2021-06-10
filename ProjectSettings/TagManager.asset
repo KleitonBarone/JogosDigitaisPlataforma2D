@@ -15,6 +15,7 @@ TagManager:
   - Spikes
   - Door
   - SavePoint
+  - Projectile
   layers:
   - Default
   - TransparentFX
