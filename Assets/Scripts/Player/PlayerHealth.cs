@@ -13,6 +13,8 @@ public class PlayerHealth : MonoBehaviour
     public GameObject Canvas;
     public Image CI_GameOver;
     public PlayerScriptObject Savepoint;
+    public bool freeze;
+    
 
     public bool isDied = false;
 
@@ -24,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    	freeze = false;
         //GameOverText.SetActive(false);
         CI_GameOver.enabled = false;
     }
@@ -44,9 +47,12 @@ public class PlayerHealth : MonoBehaviour
                 }
                 else
                 {
+                   
 
-                    if (Lifes > 0)
+                    if (Lifes > 0 && !freeze)
                     {
+                    	
+                  	 freeze = true;
                         OnPlayerDeath();
                     }
 
@@ -79,9 +85,11 @@ public class PlayerHealth : MonoBehaviour
 
     void OnPlayerDeath()
     {
+      if(freeze) {
         Lifes--;
         DestroyLife("Life", Lifes);
         StartCoroutine(BacktoCheckpoint());
+      } 
     }
 
     IEnumerator Restart()
@@ -89,14 +97,17 @@ public class PlayerHealth : MonoBehaviour
         Savepoint.resetCheckpointPosition();
         yield return new WaitForSeconds(2);
         isDied = false;
+        freeze = false;
         _animator.SetBool(isDying, isDied);
         GameManager.Instance.LoadLevel("MainScreen");
     }
 
     IEnumerator BacktoCheckpoint()
     {
+        freeze = true;
         yield return new WaitForSeconds(2);
         isDied = false;
+        freeze = false;
         _animator.SetBool(isDying, isDied);
         this.transform.position = Savepoint.getCheckpointPosition();
         this.GetComponent<SpriteRenderer>().flipY = false;

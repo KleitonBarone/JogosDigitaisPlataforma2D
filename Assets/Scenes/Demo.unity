@@ -27864,9 +27864,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2854862161997087386, guid: d911690d456cf0845ad561fedcd9bb4f, type: 3}
+      propertyPath: scene
+      value: Demo_Final_Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 2854862161997087386, guid: d911690d456cf0845ad561fedcd9bb4f, type: 3}
       propertyPath: Finish_Game
       value: 
       objectReference: {fileID: 1984595770}
+    - target: {fileID: 2854862161997087386, guid: d911690d456cf0845ad561fedcd9bb4f, type: 3}
+      propertyPath: transitionTime
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2854862161997087397, guid: d911690d456cf0845ad561fedcd9bb4f, type: 3}
       propertyPath: m_RootOrder
       value: 21
@@ -27958,11 +27966,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4994771976953613286, guid: 962ca113a8c6c3f4e961145069ba88d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.1
+      value: -18.37
       objectReference: {fileID: 0}
     - target: {fileID: 4994771976953613286, guid: 962ca113a8c6c3f4e961145069ba88d9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.46
+      value: 1.54
       objectReference: {fileID: 0}
     - target: {fileID: 4994771976953613286, guid: 962ca113a8c6c3f4e961145069ba88d9, type: 3}
       propertyPath: m_LocalPosition.z

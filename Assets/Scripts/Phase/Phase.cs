@@ -8,6 +8,8 @@ public class Phase : MonoBehaviour
 {
 
     public Image Finish_Game;
+    public string scene; 
+    public int transitionTime;
     
     void Start()
     {
@@ -25,8 +27,8 @@ public class Phase : MonoBehaviour
     }
       IEnumerator GotoMainScreen()
     {
-       yield return new WaitForSeconds(2);
-       GameManager.Instance.LoadLevel("MainScreen");
+       yield return new WaitForSeconds(transitionTime);
+       GameManager.Instance.LoadLevel(scene);
     }
     
 }
